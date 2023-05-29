@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>FISCO BCOS 区块链开发概述 - Oliver&#39;s Blog</title><meta name="Description" content="FISCO BCOS 区块链搭建，智能合约编译调用以及caliper压力测试简单介绍"><meta property="og:title" content="FISCO BCOS 区块链开发概述" />
+<meta property="og:description" content="FISCO BCOS 区块链搭建，智能合约编译调用以及caliper压力测试简单介绍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/fisco_bcos/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-25T13:07:39+00:00" />
+<meta property="article:modified_time" content="2023-05-30T00:50:20+08:00" /><meta property="og:site_name" content="Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="FISCO BCOS 区块链开发概述"/>
+<meta name="twitter:description" content="FISCO BCOS 区块链搭建，智能合约编译调用以及caliper压力测试简单介绍"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/fisco_bcos/" /><link rel="next" href="https://example.com/ubuntu_env_install/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "FISCO BCOS 区块链开发概述",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/fisco_bcos\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "experiment, FISCO-BCOS","wordcount":  4304 ,
+        "url": "https:\/\/example.com\/fisco_bcos\/","datePublished": "2022-06-25T13:07:39+00:00","dateModified": "2023-05-30T00:50:20+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/example.com\/common\/ycy.jpg"},"author": {
+                "@type": "Person",
+                "name": "oliver"
+            },"description": "FISCO BCOS 区块链搭建，智能合约编译调用以及caliper压力测试简单介绍"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Oliver&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/fisco_bcos/" selected>简体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Oliver&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/fisco_bcos/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">FISCO BCOS 区块链开发概述</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>oliver</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%AE%9E%E9%AA%8C/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>实验</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-25">2022-06-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4304 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/fisco_bcos/" class="leancloud_visitors" data-flag-title="FISCO BCOS 区块链开发概述">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#区块链搭建">区块链搭建</a>
+      <ul>
+        <li><a href="#first-blockchain">First Blockchain</a></li>
+        <li><a href="#docker启动区块链">docker启动区块链</a></li>
+        <li><a href="#多机多联盟区块链">多机多联盟区块链</a></li>
+      </ul>
+    </li>
+    <li><a href="#python-sdk">Python-SDK</a>
+      <ul>
+        <li><a href="#准备">准备</a></li>
+        <li><a href="#配置channel通信协议">配置channel通信协议</a></li>
+        <li><a href="#调用示例">调用示例</a></li>
+        <li><a href="#blockchainpy">blockchain.py</a></li>
+      </ul>
+    </li>
+    <li><a href="#webase-后台部署">WeBASE 后台部署</a>
+      <ul>
+        <li><a href="#java-安装">JAVA 安装</a></li>
+        <li><a href="#mysql-安装">MySQL 安装</a></li>
+        <li><a href="#webase部署">WeBASE部署</a></li>
+        <li><a href="#修改配置文件">修改配置文件</a></li>
+        <li><a href="#usage">Usage</a></li>
+      </ul>
+    </li>
+    <li><a href="#hyperledger-caliper-压力测试工具">Hyperledger Caliper 压力测试工具</a>
+      <ul>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#修改源码">修改源码</a></li>
+        <li><a href="#修改配置文件-1">修改配置文件</a></li>
+        <li><a href="#例子">例子</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>通过之前的比赛以及后来区块链电子投票平台的搭建，目前我们小组对FISCO BCOS 区块链的开发和测试的流程还算熟悉，这里写成一个文档，帮助后续同学快速学习。</p>
+<ul>
+<li>
+<p><a href="https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener noreffer ">FISCO BCOS 官方文档</a></p>
+</li>
+<li>
+<p><a href="https://github.com/FISCO-BCOS/FISCO-BCOS" target="_blank" rel="noopener noreffer ">FISCO BCOS github 源码</a></p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>本文只涉及在ubuntu 上如何搭建和设置，对于windows或其他发行版linux，请自行阅读官方文档学习。</li>
+<li>目前环境基于Ubuntu 21.10搭建， 22.04把openssl大版本从1.x更新到了3.x，如果需要运行fisco bcos， 需要修改脚本跳过openssl的版本检查，可能还会存在未知问题。</li>
+</ul>
+</blockquote>
+<h2 id="区块链搭建">区块链搭建</h2>
+<h3 id="first-blockchain">First Blockchain</h3>
+<p><a href="https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/installation.html" target="_blank" rel="noopener noreffer ">参考链接</a></p>
+<p><strong>创建并进入文件夹</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir fisco <span class="o">&amp;&amp;</span> <span class="nb">cd</span> fisco
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>下载官方脚本</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -#LO https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v2.9.0/build_chain.sh <span class="o">&amp;&amp;</span> chmod u+x build_chain.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>搭建单群组4节点区块链</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash build_chain.sh -l 127.0.0.1:4 -p 30300,20200,8545
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中，-l 指定了节点ip<code>127.0.0.1</code>和节点个数<code>4</code>，可以自行修改. -p 执行了节点各种通信协议的起始端口，第一个节点端口为<code>30300, 20200, 8545</code>, 第二个为<code>30301, 20201, 8546</code>, 以此类推</p>
+<p>关于<code>build_chain.sh</code>更加细致的介绍可以参考<a href="https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/manual/build_chain.html#id2" target="_blank" rel="noopener noreffer ">官方文档</a></p>
+<p><strong>启动区块链</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash ./node/127.0.0.1/start_all.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相应的，文件夹中还有<code>stop_all.sh</code>用来关闭区块链节点，每个node文件夹中有单独的启动和关闭脚本</p>
+<p><strong>检查是否成功启动</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep -v grep <span class="p">|</span> grep fisco-bcos
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>检查日志输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tail -f nodes/127.0.0.1/node0/log/log*  <span class="p">|</span> grep connected
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker启动区块链">docker启动区块链</h3>
+<p>在原本命令上加<code>-d</code>选项，即可使用docker启动4个容器作为节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">bash build_chain.sh -d -l 127.0.0.1:4 -p 30300,20200,8545
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样使用<code>nodes/127.0.0.1/start_all.sh</code>启动所有节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ ./nodes/127.0.0.1/start_all.sh
+</span></span><span class="line"><span class="cl">try to start node0
+</span></span><span class="line"><span class="cl">try to start node1
+</span></span><span class="line"><span class="cl">try to start node2
+</span></span><span class="line"><span class="cl">try to start node3
+</span></span><span class="line"><span class="cl">e417cc673df4907dee792eb793ab1bd6e9c49d062c5deb3346d75be13f4d57ba
+</span></span><span class="line"><span class="cl">f90f7aaa0dccabb855fb7fdb695d58f9c292252ec7d85e5f36ff4be3a9620309
+</span></span><span class="line"><span class="cl">ab529fe551e84d65ff963c6d109a6a7d4ef4684e1f8b5e73496f907a6f5d70b5
+</span></span><span class="line"><span class="cl">46c4db857296d6dddded3e9aba8328a27b2d6ec3a92255861297c4b426c29daa
+</span></span><span class="line"><span class="cl"> node0 start successfully
+</span></span><span class="line"><span class="cl"> node3 start successfully
+</span></span><span class="line"><span class="cl"> node1 start successfully
+</span></span><span class="line"><span class="cl"> node2 start successfully
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>docker ps </code>命令查看节点情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ docker ps
+</span></span><span class="line"><span class="cl">CONTAINER ID   IMAGE                       COMMAND                  CREATED         STATUS         PORTS     NAMES
+</span></span><span class="line"><span class="cl">f90f7aaa0dcc   fiscoorg/fiscobcos:v2.8.0   <span class="s2">&#34;/usr/local/bin/fisc…&#34;</span>   <span class="m">5</span> seconds ago   Up <span class="m">4</span> seconds             homeswtfishbonechainnodes127.0.0.1node3
+</span></span><span class="line"><span class="cl">ab529fe551e8   fiscoorg/fiscobcos:v2.8.0   <span class="s2">&#34;/usr/local/bin/fisc…&#34;</span>   <span class="m">5</span> seconds ago   Up <span class="m">4</span> seconds             homeswtfishbonechainnodes127.0.0.1node0
+</span></span><span class="line"><span class="cl">46c4db857296   fiscoorg/fiscobcos:v2.8.0   <span class="s2">&#34;/usr/local/bin/fisc…&#34;</span>   <span class="m">5</span> seconds ago   Up <span class="m">3</span> seconds             homeswtfishbonechainnodes127.0.0.1node2
+</span></span><span class="line"><span class="cl">e417cc673df4   fiscoorg/fiscobcos:v2.8.0   <span class="s2">&#34;/usr/local/bin/fisc…&#34;</span>   <span class="m">5</span> seconds ago   Up <span class="m">4</span> seconds             homeswtfishbonechainnodes127.0.0.1node1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多机多联盟区块链">多机多联盟区块链</h3>
+<p><a href="https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/enterprise_tools/index.html" target="_blank" rel="noopener noreffer ">官方文档</a>已经很详细了，这里不做赘述</p>
+<h2 id="python-sdk">Python-SDK</h2>
+<p><a href="https://github.com/FISCO-BCOS/python-sdk" target="_blank" rel="noopener noreffer ">参考链接</a></p>
+<p>由于ubuntu 21.10自带python版本能够满足其需求，所以这里不再对如何处理python低版本赘述</p>
+<h3 id="准备">准备</h3>
+<p><strong>安装依赖</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y zlib1g-dev libffi6 libffi-dev wget git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>拉取源码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/FISCO-BCOS/python-sdk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>安装依赖</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> python-sdk
+</span></span><span class="line"><span class="cl">pip install -r requirement.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>初始化配置</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash init_env.sh -i
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此脚本执行操作如下：</p>
+<ul>
+<li>copy client_config.py.template &gt; client_config.py</li>
+<li>安装solc 编译器</li>
+</ul>
+<h3 id="配置channel通信协议">配置channel通信协议</h3>
+<p>此时需要修改config_client.py中的内容</p>
+<p><strong>配置channel信息</strong>
+python sdk 使用fisco bcos 称之为<code>channel</code>的通信协议与节点进行通信，即创建区块链时所用的<code>20200</code>端口</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">channel_host = &#34;127.0.0.1&#34;
+</span></span><span class="line"><span class="cl">channel_port = 20200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>想要配置其他节点，则可以根据<code>fisco/nodes/127.0.0.1/nodex/config.ini</code>中的内容进行修改</p>
+<p><strong>配置证书</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp ~/fisco/nodes/127.0.0.1/sdk/* ./bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将区块链的相关sdk证书复制到bin文件夹中</p>
+<p><strong>验证</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./console.py getNodeVersion
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果返回以下类似结果，则可认为配置成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">INFO</span> <span class="err">&gt;&gt;</span> <span class="err">user</span> <span class="err">input</span> <span class="err">:</span> <span class="p">[</span><span class="err">&#39;getNodeVersion&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">INFO</span> <span class="err">&gt;&gt;</span> <span class="err">BcosClient:</span>  <span class="err">channel</span> <span class="mf">127.0</span><span class="err">.</span><span class="mf">0.1</span><span class="err">:</span><span class="mi">20200</span><span class="err">,groupid</span> <span class="err">:</span><span class="mi">1</span><span class="err">,crypto</span> <span class="err">type:ECDSA,ssl</span> <span class="err">type:ECDSA</span>
+</span></span><span class="line"><span class="cl"><span class="err">INFO</span> <span class="err">:</span> <span class="err">getNodeVersion</span>
+</span></span><span class="line"><span class="cl">     <span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Build Time&#34;</span><span class="p">:</span> <span class="s2">&#34;20210830 12:52:15&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Build Type&#34;</span><span class="p">:</span> <span class="s2">&#34;Linux/clang/Release&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Chain Id&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;FISCO-BCOS Version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.8.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Git Branch&#34;</span><span class="p">:</span> <span class="s2">&#34;HEAD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Git Commit Hash&#34;</span><span class="p">:</span> <span class="s2">&#34;30fb38ac5692468058abf6aa12869d2ae776c275&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Supported Version&#34;</span><span class="p">:</span> <span class="s2">&#34;2.8.0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="调用示例">调用示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看SDK使用方法</span>
+</span></span><span class="line"><span class="cl">./console.py usage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取节点版本</span>
+</span></span><span class="line"><span class="cl">./console.py getNodeVersion
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>部署HelloWorld合约</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./console.py deploy HelloWorld
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里编译并部署了位于python-sdk中<code>contracts/HelloWorld.sol</code>的文件</p>
+<p><strong>调用HelloWorld合约</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./console.py call HelloWorld 0x2d1c577e41809453c50e7e5c3f57d06f3cdd90ce get 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里<code>0x2d1c577e41809453c50e7e5c3f57d06f3cdd90ce</code>为部署成功后返回的合约地址，此处仅为举例。<code>get</code>用来调用合约被修饰为<code>view</code>的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./console.py sendtx HelloWorld 0x2d1c577e41809453c50e7e5c3f57d06f3cdd90ce <span class="nb">set</span> <span class="s2">&#34;Hello, FISCO&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>set为HelloWorld合约中的函数，”FISCO BCOS“为为set传入的参数</p>
+<h3 id="blockchainpy">blockchain.py</h3>
+<p>我们在参加比赛时，<strong>陈鲁同</strong>同学基于python-sdk源码写了<code>blockchain.py</code>,为我们执行一系列合约调用提供了支持</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 代码主体部分</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">unique</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">traceback</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Contract</span><span class="p">,</span> <span class="n">db</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client.bcosclient</span> <span class="kn">import</span> <span class="n">BcosClient</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client.bcoserror</span> <span class="kn">import</span> <span class="n">BcosError</span><span class="p">,</span> <span class="n">BcosException</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client.datatype_parser</span> <span class="kn">import</span> <span class="n">DatatypeParser</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client.common.compiler</span> <span class="kn">import</span> <span class="n">Compiler</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">eth_utils</span> <span class="kn">import</span> <span class="n">to_checksum_address</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">eth_account.account</span> <span class="kn">import</span> <span class="n">Account</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client.signer_impl</span> <span class="kn">import</span> <span class="n">Signer_ECDSA</span><span class="p">,</span> <span class="n">Signer_Impl</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">client_config</span> <span class="kn">import</span> <span class="n">client_config</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">__init__</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">count</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成区块链账户 写入.keystore文件存储信息</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ac</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">kf</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">ac</span><span class="o">.</span><span class="n">privateKey</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">keyfile</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">.keystore&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">client_config</span><span class="o">.</span><span class="n">account_keyfile_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">keyfile</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dump_f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">kf</span><span class="p">,</span> <span class="n">dump_f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dump_f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">signin_account</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 返回用户区块链地址</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">signin_account</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Signer_Impl</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">signer</span> <span class="o">=</span> <span class="n">Signer_ECDSA</span><span class="o">.</span><span class="n">from_key_file</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">client_config</span><span class="o">.</span><span class="n">account_keyfile_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">.keystore&#34;</span><span class="p">,</span> <span class="n">password</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">signer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">compile_and_abis</span><span class="p">(</span><span class="nb">compile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Compiles all contracts and generates abi and bin files
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">abis</span><span class="p">,</span> <span class="n">dp</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contract_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">compile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Compiler</span><span class="o">.</span><span class="n">compile_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">.sol&#34;</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="s2">&#34;contracts&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># data_parser = DatatypeParser()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># data_parser.load_abi_file(f&#34;contracts/{c}.abi&#34;)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># abis[c] = data_parser.contract_abi</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># dp[c] = data_parser</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 部署合约返回合约地址</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">deploy_contract</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract</span><span class="p">,</span> <span class="nb">compile</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">signer</span><span class="p">:</span> <span class="n">Signer_Impl</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fn_args</span><span class="o">=</span><span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        contract: the contract&#39;s name, e.g.: &#34;EngineerList&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        compile (bool): compile or not
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        the contract address
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">compile</span> <span class="ow">and</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">client_config</span><span class="o">.</span><span class="n">solc_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">client_config</span><span class="o">.</span><span class="n">solcjs_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Compiler</span><span class="o">.</span><span class="n">compile_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">contract</span><span class="si">}</span><span class="s2">.sol&#34;</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="s2">&#34;contracts&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span> <span class="o">=</span> <span class="n">DatatypeParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span><span class="o">.</span><span class="n">load_abi_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">contract</span><span class="si">}</span><span class="s2">.abi&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">=</span> <span class="n">BcosClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">contract</span><span class="si">}</span><span class="s2">.bin&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">load_f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">contract_bin</span> <span class="o">=</span> <span class="n">load_f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">load_f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">contract_bin</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">contract_abi</span><span class="o">=</span><span class="n">data_parser</span><span class="o">.</span><span class="n">contract_abi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fn_args</span><span class="o">=</span><span class="n">fn_args</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">from_account_signer</span><span class="o">=</span><span class="n">signer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">addr</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&#34;contractAddress&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">BcosError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">BcosException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">client</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;deploy contract </span><span class="si">{</span><span class="n">contract</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">addr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 调用合约</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">call_contract</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fn_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">signer</span><span class="p">:</span> <span class="n">Signer_Impl</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gasPrice</span><span class="o">=</span><span class="mi">30000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">abis</span><span class="p">,</span> <span class="n">dp</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">=</span> <span class="n">BcosClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># contract_abi = abis[contract_name]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span><span class="p">:</span> <span class="n">DatatypeParser</span> <span class="o">=</span> <span class="n">DatatypeParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span><span class="o">.</span><span class="n">load_abi_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2">.abi&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_abi</span> <span class="o">=</span> <span class="n">data_parser</span><span class="o">.</span><span class="n">contract_abi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">receipt</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">sendRawTransactionGetReceipt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">to_address</span><span class="o">=</span><span class="n">contract_addr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contract_abi</span><span class="o">=</span><span class="n">contract_abi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fn_name</span><span class="o">=</span><span class="n">fn_name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">from_account_signer</span><span class="o">=</span><span class="n">signer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gasPrice</span><span class="o">=</span><span class="n">gasPrice</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">receipt</span><span class="p">[</span><span class="s2">&#34;status&#34;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&#34;0x0&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">msg</span> <span class="o">=</span> <span class="n">receipt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;statusMsg&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="sa">f</span><span class="s2">&#34;call contract </span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">contract_addr</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fn_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">) error:</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;receipt: </span><span class="si">{</span><span class="n">receipt</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contract error: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">txhash</span> <span class="o">=</span> <span class="n">receipt</span><span class="p">[</span><span class="s2">&#34;transactionHash&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">txresponse</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">getTransactionByHash</span><span class="p">(</span><span class="n">txhash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inputresult</span> <span class="o">=</span> <span class="n">data_parser</span><span class="o">.</span><span class="n">parse_transaction_input</span><span class="p">(</span><span class="n">txresponse</span><span class="p">[</span><span class="s2">&#34;input&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">outputresult</span> <span class="o">=</span> <span class="n">data_parser</span><span class="o">.</span><span class="n">parse_receipt_output</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inputresult</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">],</span> <span class="n">receipt</span><span class="p">[</span><span class="s2">&#34;output&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;call contract </span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">contract_addr</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fn_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">) -&gt; </span><span class="si">{</span><span class="n">outputresult</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">outputresult</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">call_contract2</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fn_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">signer</span><span class="p">:</span> <span class="n">Signer_Impl</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span> <span class="o">=</span> <span class="n">BcosClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">signer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">client</span><span class="o">.</span><span class="n">default_from_account_signer</span> <span class="o">=</span> <span class="n">signer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span><span class="p">:</span> <span class="n">DatatypeParser</span> <span class="o">=</span> <span class="n">DatatypeParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">data_parser</span><span class="o">.</span><span class="n">load_abi_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;contracts/</span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2">.abi&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contract_abi</span> <span class="o">=</span> <span class="n">data_parser</span><span class="o">.</span><span class="n">contract_abi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ret</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">contract_addr</span><span class="p">,</span> <span class="n">contract_abi</span><span class="p">,</span> <span class="n">fn_name</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;call contract </span><span class="si">{</span><span class="n">contract_name</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">contract_addr</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">fn_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">) -&gt; </span><span class="si">{</span><span class="n">ret</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">client</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ret</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="webase-后台部署">WeBASE 后台部署</h2>
+<p>WeBASE屏蔽了区块链底层的复杂度，降低区块链使用的门槛，大幅提高区块链应用的开发效率，包含节点前置、节点管理、交易链路，数据导出，Web管理平台等子系统。用户可以根据业务所需，选择子系统进行部署，可以进一步体验丰富交互的体验、可视化智能合约开发环境IDE。</p>
+<h3 id="java-安装">JAVA 安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装openjdk 11</span>
+</span></span><span class="line"><span class="cl">sudo apt install openjdk-11-jdk
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证安装</span>
+</span></span><span class="line"><span class="cl">java -version
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置JAVA_HOME, </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#如果使用bash，则在~/.bashrc文件最后加入此行，</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#如果是zsh，则在~/.zshrc中加入。 目前实验室虚拟机都使用的是zsh</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-11-openjdk-amd64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="mysql-安装">MySQL 安装</h3>
+<p>这里使用docker容器做为mysql服务器，mariadb-client-core作为客户端，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker pull mysql:5.6
+</span></span><span class="line"><span class="cl">sudo apt install mariadb-client-core-10.5
+</span></span><span class="line"><span class="cl">pip3 install PyMySQL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="webase部署">WeBASE部署</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeBASE/releases/download/v1.5.3/webase-deploy.zip
+</span></span><span class="line"><span class="cl">unzip webase-deploy.zip <span class="o">&amp;&amp;</span> <span class="nb">cd</span> webase-deploy
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建mysql服务相关文件夹，启动容器</span>
+</span></span><span class="line"><span class="cl">mkdir sqlConf sqlData sqlLogs
+</span></span><span class="line"><span class="cl">docker run -p 3306:3306 --name mysql56 -v <span class="nv">$PWD</span>/sqlConf:/etc/mysql/conf.d -v <span class="nv">$PWD</span>/sqlLogs:/logs -v <span class="nv">$PWD</span>/sqlData:/var/lib/mysql -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="m">123456</span> -d mysql:5.6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>此处还需要修改一部分源码，跳过一个webase启动前的检查。</p>
+<p>将<code>webase-deploy/comm/check.py</code>中第47行<code>checkExitedChainInfo()</code>注释掉</p>
+</blockquote>
+<h3 id="修改配置文件">修改配置文件</h3>
+<p>根据前文对区块链和mysql的配置，在这里修改<code>common.properties</code>文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Mysql database configuration of WeBASE-Node-Manager</span>
+</span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">.</span><span class="n">ip</span><span class="o">=</span><span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">3306</span>
+</span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="o">=</span><span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">.</span><span class="n">password</span><span class="o">=</span><span class="mi">123456</span>
+</span></span><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="o">=</span><span class="n">webasenodemanager</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mysql database configuration of WeBASE-Sign</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">mysql</span><span class="o">.</span><span class="n">ip</span><span class="o">=</span><span class="mf">127.0.0.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">mysql</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">3306</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">mysql</span><span class="o">.</span><span class="n">user</span><span class="o">=</span><span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">mysql</span><span class="o">.</span><span class="n">password</span><span class="o">=</span><span class="mi">123456</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">mysql</span><span class="o">.</span><span class="n">database</span><span class="o">=</span><span class="n">webasesign</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 由于与IPFS端口冲突，所以将5001-5004改为5100-5104</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># WeBASE-Web service port </span>
+</span></span><span class="line"><span class="cl"><span class="n">web</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">5100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># WeBASE-Node-Manager service port</span>
+</span></span><span class="line"><span class="cl"><span class="n">mgr</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">5101</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># WeBASE-Front service port</span>
+</span></span><span class="line"><span class="cl"><span class="n">front</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">5102</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># WeBASE-Sign service port</span>
+</span></span><span class="line"><span class="cl"><span class="n">sign</span><span class="o">.</span><span class="n">port</span><span class="o">=</span><span class="mi">5104</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 由于使用已有区块链节点，故设置一下参数</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">.</span><span class="n">exist</span><span class="o">.</span><span class="n">fisco</span><span class="o">=</span><span class="n">yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># fisco 的文件夹路径，根据自己情况设置</span>
+</span></span><span class="line"><span class="cl"><span class="n">fisco</span><span class="o">.</span><span class="n">dir</span><span class="o">=~/</span><span class="n">fisco</span><span class="o">/</span><span class="n">nodes</span><span class="o">/</span><span class="mf">127.0.0.1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="usage">Usage</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装所有组件</span>
+</span></span><span class="line"><span class="cl">python deploy.py installAll
+</span></span><span class="line"><span class="cl"><span class="c1"># 由于我们在上面设置了fisco 路径， 所以startAll与stopAll可以帮助我们启动和关闭区块链</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动WeBASE和节点，</span>
+</span></span><span class="line"><span class="cl">python deploy.py startAll
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭WeBASE和区块链</span>
+</span></span><span class="line"><span class="cl">python deploy.py stopAll
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hyperledger-caliper-压力测试工具">Hyperledger Caliper 压力测试工具</h2>
+<p>Caliper是Hyperledger旗下做基准测试benchmark的工具，能够给Hyperledger Fabric, Ethereum, FISCO BCOS 进行性能测试</p>
+<h3 id="准备工作">准备工作</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir benchmarks <span class="o">&amp;&amp;</span> <span class="nb">cd</span> benchmarks
+</span></span><span class="line"><span class="cl">nvm use <span class="m">8</span>
+</span></span><span class="line"><span class="cl">nvm init 
+</span></span><span class="line"><span class="cl">npm install --only<span class="o">=</span>prod @hyperledger/caliper-cli@0.2.0
+</span></span><span class="line"><span class="cl">npx caliper <span class="nb">bind</span> --caliper-bind-sut fisco-bcos --caliper-bind-sdk latest
+</span></span><span class="line"><span class="cl">git clone https://github.com/vita-dounai/caliper-benchmarks.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修改源码">修改源码</h3>
+<p>caliper对于FISCO BCOS的支持还存在一些问题，有些代码没有合并，所以需要我们手动修改源码</p>
+<ol>
+<li>根据<a href="https://github.com/hyperledger/caliper/pull/647/files" target="_blank" rel="noopener noreffer ">PR #647</a>，修改以下三个文件
+<ul>
+<li><code>benchmarks/node_modules/@hyperledger/caliper-fisco-bcos/lib/channelPromise.js</code></li>
+<li><code>benchmarks/node_modules/@hyperledger/caliper-fisco-bcos/lib/fiscoBcos.js </code></li>
+<li><code>benchmarks/node_modules/@hyperledger/caliper-fisco-bcos/lib/web3lib/web3sync.js</code></li>
+</ul>
+</li>
+<li>根据<a href="https://github.com/hyperledger/caliper/pull/677/files" target="_blank" rel="noopener noreffer ">PR #677</a>,修改文件
+<ul>
+<li><code>benchmarks/node_modules/@hyperledger/caliper-fisco-bcos/lib/fiscoBcos.js </code></li>
+</ul>
+</li>
+<li>根据<a href="https://github.com/FISCO-BCOS/FISCO-BCOS/issues/1721" target="_blank" rel="noopener noreffer ">issue #1721</a>,
+在<code>benchmarks/node_modules/@hyperledger/caliper-fisco-bcos/package.json</code>文件中的<code>dependencies</code>添加一项<code>&quot;secp256k1&quot;: &quot;^3.8.0&quot;</code>,随后执行<code>npm -i</code>安装</li>
+</ol>
+<h3 id="修改配置文件-1">修改配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;caliper&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;blockchain&#34;</span><span class="p">:</span> <span class="s2">&#34;fisco-bcos&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;fisco-bcos&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//  文件会自带，这里没必要修改。之前还傻乎乎的自己重新生成了新账户 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nt">&#34;privateKey&#34;</span><span class="p">:</span> <span class="s2">&#34;${accountPrivkey}&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;account&#34;</span><span class="p">:</span> <span class="s2">&#34;${newAccount}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 此处填写所有节点的IP和端口信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;network&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;nodes&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;ip&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;rpcPort&#34;</span><span class="p">:</span> <span class="s2">&#34;8545&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;channelPort&#34;</span><span class="p">:</span> <span class="s2">&#34;20200&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;ip&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;rpcPort&#34;</span><span class="p">:</span> <span class="s2">&#34;8546&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;channelPort&#34;</span><span class="p">:</span> <span class="s2">&#34;20201&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;ip&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;rpcPort&#34;</span><span class="p">:</span> <span class="s2">&#34;8547&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;channelPort&#34;</span><span class="p">:</span> <span class="s2">&#34;20202&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;ip&#34;</span><span class="p">:</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;rpcPort&#34;</span><span class="p">:</span> <span class="s2">&#34;8548&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;channelPort&#34;</span><span class="p">:</span> <span class="s2">&#34;20203&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 这里很坑，推荐使用完整路径，
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nt">&#34;authentication&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;key&#34;</span><span class="p">:</span> <span class="s2">&#34;/home/ubuntu/fisco/nodes/127.0.0.1/sdk/node.key&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;cert&#34;</span><span class="p">:</span> <span class="s2">&#34;/home/ubuntu/fisco/nodes/127.0.0.1/sdk/node.crt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;ca&#34;</span><span class="p">:</span> <span class="s2">&#34;/home/ubuntu/fisco/nodes/127.0.0.1/sdk/ca.crt&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;groupID&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="mi">100000</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}{</span><span class="err">以下省略</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注1：如果自己使用python sdk 生成了新账户，返回的新地址和账户都带<code>0x</code>前缀，填入时，记得地址无需改动,但是私钥要删除<code>0x</code>前缀</p>
+</blockquote>
+<blockquote>
+<p>注2： <code>node.key</code> 以及<code>node.crt</code> 文件不在 <code>nodes/127.0.0.1/sdk</code> 文件夹中，可以选择</p>
+<ol>
+<li>将某个节点的这两个文件复制到sdk文件夹，</li>
+<li>使用sdk中的<code>sdk.key</code>, <code>sdk.crt</code>文件</li>
+</ol>
+</blockquote>
+<p><strong>简单测试</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npx caliper benchmark run --caliper-workspace caliper-benchmarks --caliper-benchconfig benchmarks/samples/fisco-bcos/helloworld/config.yaml  --caliper-networkconfig networks/fisco-bcos/4nodes1group/fisco-bcos.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="例子">例子</h3>
+<p>这里根据前面helloworld，写一个如何增加节点测试tps的例子</p>
+<blockquote>
+<ol>
+<li>Caliper只能读取docker启动的fisco 节点在压力测试时的cpu 内存占用信息，对于进程启动的fisco，只能返回tps。如果不在意cpu，内存占用，可以直接使用进程启动，否则还是推荐docker启动。</li>
+<li>压力测试会发送大量交易，可能会导致WeBASE后台出现bug，无法读取交易细节。 压力测试时推荐新建区块链系统进行测试，测试完成后删除</li>
+</ol>
+</blockquote>
+<!-- **启动区块链**
+```
+bash build_chain.sh -d -l 127.0.0.1:4 -p 30300, 20200, 8545
+``` -->
+<p><strong>参数设置</strong>
+在benchmarks文件夹下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建新文件夹，内保存新区块链信息和benchmark相关参数设置</span>
+</span></span><span class="line"><span class="cl">mkdir <span class="nb">test</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nb">test</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制建链脚本</span>
+</span></span><span class="line"><span class="cl">cp ~/fiso/build_chain.sh .
+</span></span><span class="line"><span class="cl"><span class="c1"># 此文件见保存benchmark参数</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#创建一个4节点区块链, 输出到4nodes文件夹下, </span>
+</span></span><span class="line"><span class="cl">bash build_chain.sh -d -l 127.0.0.1:4 -p 30300,20200,8545 -o 4nodes
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> 4nodes
+</span></span><span class="line"><span class="cl">mkdir benchmarks <span class="o">&amp;&amp;</span> <span class="nb">cd</span> benchmarks
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制config.yaml, get.js set.js 到此处</span>
+</span></span><span class="line"><span class="cl">cp ~/benchmarks/caliper-benchmarks/benchmarks/samples/fisco-bcos/helloworld/* .
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制记录网络参数的json到此处</span>
+</span></span><span class="line"><span class="cl">cp ~/benchmarks/caliper-benchmarks/fisco-bcos/4nodes1group/fisco-bcos.json ./network.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>修改config.yaml</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">test</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># name 和description会出现在最终报告文件中，根据自己情况修改</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Hello World</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">This is a helloworld benchmark of FISCO BCOS for caliper</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">clients</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rounds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">get</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Test performance of getting name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">txNumber</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 发送总交易数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="m">10000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rateControl</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">fixed-rate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">opts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># tps设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tps</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 调用路径，这里修改为当前路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">callback</span><span class="p">:</span><span class="w"> </span><span class="l">benchmarks/4nodes/benchmarks/get.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l">set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Test performance of setting name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">txNumber</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="m">10000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rateControl</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">fixed-rate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">opts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tps</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 修改路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">callback</span><span class="p">:</span><span class="w"> </span><span class="l">benchmarks/4nodes/benchmarks/set.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">monitor</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 节点启动方式，docker启动和process进程启动，这里使用docker启动</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">docker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">process</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 填写docker 容器名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">docker</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">node0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">node1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">node2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">node3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">process</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">node</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="l">fiscoBcosClientWorker.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">multiOutput</span><span class="p">:</span><span class="w"> </span><span class="l">avg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="m">0.5</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-05-30&nbsp;<a class="git-hash" href="https://github.com/dillonzq/LoveIt/commit/2f15f992e039530c826b8a4454a1a0b047954d84" target="_blank" title="commit by oliver(oliverustc@hotmail.com) 2f15f992e039530c826b8a4454a1a0b047954d84: custom">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>2f15f99</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/fisco_bcos/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://example.com/fisco_bcos/" data-title="FISCO BCOS 区块链开发概述" data-hashtags="experiment,FISCO-BCOS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://example.com/fisco_bcos/" data-hashtag="experiment"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://example.com/fisco_bcos/" data-title="FISCO BCOS 区块链开发概述"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://example.com/fisco_bcos/" data-title="FISCO BCOS 区块链开发概述"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://example.com/fisco_bcos/" data-title="FISCO BCOS 区块链开发概述"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/experiment/">experiment</a>,&nbsp;<a href="/tags/fisco-bcos/">FISCO-BCOS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/ubuntu_env_install/" class="next" rel="next" title="Ubuntu 基础软件安装与配置">Ubuntu 基础软件安装与配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.112.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">oliver</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.5.0/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{"valine":{"appId":"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI","appKey":"WBmoGyJtbqUswvfLh6L8iEBr","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-CN","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"serverURLs":"https://leancloud.hugoloveit.com","visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
