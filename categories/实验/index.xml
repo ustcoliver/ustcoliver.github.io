@@ -1,31 +1,31 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>实验 - 分类 - Oliver&#39;s Blog</title>
-        <link>https://example.com/categories/%E5%AE%9E%E9%AA%8C/</link>
+        <link>https://blog.oliverustc.top/categories/%E5%AE%9E%E9%AA%8C/</link>
         <description>实验 - 分类 - Oliver&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>oliverustc@gmail.com (oliver)</managingEditor>
-            <webMaster>oliverustc@gmail.com (oliver)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 04 Jul 2022 09:04:45 &#43;0000</lastBuildDate><atom:link href="https://example.com/categories/%E5%AE%9E%E9%AA%8C/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>oliverustc@gmail.com (oliver)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 04 Jul 2022 09:04:45 &#43;0000</lastBuildDate><atom:link href="https://blog.oliverustc.top/categories/%E5%AE%9E%E9%AA%8C/" rel="self" type="application/rss+xml" /><item>
     <title>Hyperledger Fabric Quick Start 内容详解</title>
-    <link>https://example.com/fabric_quick_start_details/</link>
+    <link>https://blog.oliverustc.top/fabric_quick_start_details/</link>
     <pubDate>Mon, 04 Jul 2022 09:04:45 &#43;0000</pubDate>
     <author>oliver</author>
-    <guid>https://example.com/fabric_quick_start_details/</guid>
+    <guid>https://blog.oliverustc.top/fabric_quick_start_details/</guid>
     <description><![CDATA[本文将结合test-network中的network.sh及scripts文件夹中脚本源码，介绍整个流程 network.sh等相关脚本能实现]]></description>
 </item>
 <item>
     <title>Hyperledger Fabric Quick Start</title>
-    <link>https://example.com/fabric_quick_start/</link>
+    <link>https://blog.oliverustc.top/fabric_quick_start/</link>
     <pubDate>Sun, 03 Jul 2022 06:58:20 &#43;0000</pubDate>
     <author>oliver</author>
-    <guid>https://example.com/fabric_quick_start/</guid>
+    <guid>https://blog.oliverustc.top/fabric_quick_start/</guid>
     <description><![CDATA[Hyperledger Fabric 开发简介]]></description>
 </item>
 <item>
     <title>FISCO BCOS 区块链开发概述</title>
-    <link>https://example.com/fisco_bcos/</link>
+    <link>https://blog.oliverustc.top/fisco_bcos/</link>
     <pubDate>Sat, 25 Jun 2022 13:07:39 &#43;0000</pubDate>
     <author>oliver</author>
-    <guid>https://example.com/fisco_bcos/</guid>
+    <guid>https://blog.oliverustc.top/fisco_bcos/</guid>
     <description><![CDATA[FISCO BCOS 区块链搭建，智能合约编译调用以及caliper压力测试简单介绍]]></description>
 </item>
 </channel>

@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>教程 - 分类 - Oliver&#39;s Blog</title>
-        <link>https://example.com/categories/%E6%95%99%E7%A8%8B/</link>
+        <link>https://blog.oliverustc.top/categories/%E6%95%99%E7%A8%8B/</link>
         <description>教程 - 分类 - Oliver&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>oliverustc@gmail.com (oliver)</managingEditor>
-            <webMaster>oliverustc@gmail.com (oliver)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 28 Jun 2022 05:52:56 &#43;0000</lastBuildDate><atom:link href="https://example.com/categories/%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>oliverustc@gmail.com (oliver)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 28 Jun 2022 05:52:56 &#43;0000</lastBuildDate><atom:link href="https://blog.oliverustc.top/categories/%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
     <title>Ubuntu 基础软件安装与配置</title>
-    <link>https://example.com/ubuntu_env_install/</link>
+    <link>https://blog.oliverustc.top/ubuntu_env_install/</link>
     <pubDate>Tue, 28 Jun 2022 05:52:56 &#43;0000</pubDate>
     <author>oliver</author>
-    <guid>https://example.com/ubuntu_env_install/</guid>
+    <guid>https://blog.oliverustc.top/ubuntu_env_install/</guid>
     <description><![CDATA[基础环境配置备忘]]></description>
 </item>
 </channel>
