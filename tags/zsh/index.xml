@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>zsh - 标签 - Oliver&#39;s Blog</title>
+        <link>https://blog.oliverustc.top/tags/zsh/</link>
+        <description>zsh - 标签 - Oliver&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>oliverustc@gmail.com (oliver)</managingEditor>
+            <webMaster>oliverustc@gmail.com (oliver)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 23 Jan 2022 23:22:20 &#43;0800</lastBuildDate><atom:link href="https://blog.oliverustc.top/tags/zsh/" rel="self" type="application/rss+xml" /><item>
+    <title>Zsh配置与美化</title>
+    <link>https://blog.oliverustc.top/zsh_custom/</link>
+    <pubDate>Sun, 23 Jan 2022 23:22:20 &#43;0800</pubDate>
+    <author>oliver</author>
+    <guid>https://blog.oliverustc.top/zsh_custom/</guid>
+    <description><![CDATA[zsh 配置与美化 zsh相对bash来说是一个功能更加丰富的shell 本文用作zsh的定制，包括图标美化，系统状态提示，命令高亮，命令历史提示等。]]></description>
+</item>
+</channel>
+</rss>
