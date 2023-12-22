@@ -1,4 +1,10 @@
-# zsh 配置与美化
+---
+title: zsh 配置与美化
+draft: false
+tags:
+  - basic-exp
+---
+
 
 本文介绍 linux 如何安装`zsh`和配置`oh-my-zsh`的过程
 
@@ -49,15 +55,26 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 oh-my-zsh 有很多 [主题](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)
 这里选择可配置性最强的[powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-- **字体**
-    要想实现最佳效果，必须安装 nerd fonts 包含的一系列图标，这里推荐几个字体
+![效果演示](https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/prompt-styles-high-contrast.png)
+
+```shell
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+#### 字体
+    
+
+linux本机或windows ssh连接，要想显示丰富的图标，需要在本地主机上安装字体。
+linux远程主机则可以跳过。
 - Hack [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip)
 - Meslo [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Meslo.zip)
 - JetBrains [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip)
 
+这几个是比较受欢迎的，也可以去[Nerd fonts网站](https://www.nerdfonts.com/font-downloads)自行选择喜欢的
+
 - Windows
-    下载字体，解压后即可右键点击安装。
-    或者使用 scoop 安装：
+    
+下载字体，解压后即可右键点击安装。或者使用 scoop 安装：
 
 ```powershell
 scoop install Hack-NF-Mono
@@ -65,20 +82,17 @@ scoop install Hack-NF-Mono
 
 - Arch
 
+Arch 由于软件包丰富，可以直接使用pacman安装
+
 ```shell
 sudo pacman -S ttf-hack-nerd ttf-jetbrains-mono-nerd ttf-meslo-nerd
 ```
 
 - Debian/Ubuntu
 
+Debian/ubuntu则需要下载、解压字体后，将字体放置于`/usr/share/fonts`文件夹中
 ```shell
 sudo cp -r Hack/ /usr/share/fonts
-```
-
-![效果演示](https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/prompt-styles-high-contrast.png)
-
-```shell
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
 ### 配置生效
@@ -87,13 +101,13 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 - **主题**
 
-```
+```bash
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
 - **插件**
 
-```
+```bash
 plugins=(git extract z zsh-autosuggestions zsh-syntax-highlighting )
 ```
 
@@ -108,7 +122,7 @@ source ~/.zshrc
 
 使配置生效。
 
-## Custom
+## 个性化配置
 
 ### 添加 alias
 
@@ -118,7 +132,7 @@ source ~/.zshrc
 - **vim**
     如果使用 neovim，则改为 nvim 即可
 
-```
+```bash
 alias v='vim'
 ```
 
@@ -126,41 +140,42 @@ alias v='vim'
     如果需要经常编辑`~/.zshrc`文件，如添加`$PATH`, 通过 alias 添加各种自己常用的命令等
     则可以添加如下两行，快速编辑和生效
 
-```
+```bash
 alias szrc="source ~/.zshrc"
 alias vzrc="vim ~/.zshrc"
 ```
 
-#### 添加 exa
+#### eza
 
-exa 是一个新的 ls 命令，能够为文件和文件夹添加颜色和图标区分等丰富功能。
+eza 是一个新的 ls 命令，能够为文件和文件夹添加颜色和图标区分等丰富功能。
+
+![效果](https://assets.oliverustc.top/cfoliver/2023/12/9e70e5a25f78a5a6a82c25ce330cdd65.gif)
 
 - **Arch 安装**
 
+Arch 直接使用pacman安装
 ```
-sudo pacman -S exa
+sudo pacman -S eza
 ```
 
 - **Debian/Ubuntu 安装**
-    apt 无法直接安装，只能下载二进制
 
 ```shell
-# 去github下载最新的release
-wget https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip
-mkdir exa
-unzip exa-xxx.zip -d exa
-sudo cp exa/bin/exa /usr/local/bin/
+# 不要直接复制此链接,去github下载最新的release
+wget https://github.com/eza-community/eza/releases/download/v0.17.0/eza_x86_64-unknown-linux-gnu.zip
+unzip eza-xxx.zip 
+sudo install ezz /usr/local/bin/
 ```
 
 编辑`~/.zshrc`
 
 ```
-alias ls="exa --color always --icons"
+alias ls="eza --icons"
 alias lt="ls -T"
 alias la="ls -a"
 ```
 
-以上只是 exa 的简单利用，更多功能参见[介绍](https://the.exa.website/features)
+以上只是 exa 的简单利用，更多功能参见[介绍](https://github.com/eza-community/eza?tab=readme-ov-file#command-line-options)
 
 ### 修改`.p10k.zsh`
 
@@ -190,7 +205,11 @@ powerlevel10k 支持显示很多内容，这里简单介绍我正使用的功能
 ## 参考链接
 
 [oh-my-zsh github 仓库](https://github.com/ohmyzsh/ohmyzsh)
+
 [autosuggestion 插件](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
+
 [syntax-highlightling 插件](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
+
 [powerlevel10k 仓库](https://github.com/romkatv/powerlevel10k)
-[exa](https://the.exa.website/)
+
+[eza](https://github.com/eza-community/eza)

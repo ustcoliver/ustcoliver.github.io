@@ -1,10 +1,16 @@
-# Vscode-ssh实现远程开发
+---
+title: VS Code + ssh实现远程开发
+draft: false
+tags:
+  - basic-exp
+---
+
 
 # 生成 ssh 密钥
 
 首先，切换目录到.ssh 文件夹，如果没有就创建一个
 
-```
+```shell
 cd ~/.ssh
 ```
 
@@ -20,7 +26,7 @@ ssh-keygen -t ed25519 -C "test@test" -f test_key
 随后会在你当前文件夹，即`~/.ssh`中生成两个文件，`test_key`和`test_key.pub`
 其中`test_key`为私钥，自己妥善保管，`test_key.pub`是公钥，可以分享给别人
 
-# 写入到远程主机
+# 公钥内容写入到远程主机
 
 通过密码登录远程主机
 
@@ -30,13 +36,13 @@ ssh user@ip
 
 切换目录到`~/.ssh`, 同样，如果没有此文件夹可以创建一个
 
-```
+```shell
 cd ~/.ssh
 ```
 
 编辑 authorized_keys 文件, 将你的 test_key.pub 的文件内容写入到此文件中
 
-```
+```shell
 vim ./authorized_keys
 ```
 
@@ -44,7 +50,7 @@ vim ./authorized_keys
 
 退出远程主机，回到本机，可以使用`-i`指定密钥来进行登录
 
-```
+```shell
 ssh user@ip -i /path/to/test_key.pub
 ```
 
@@ -56,7 +62,7 @@ cd ~/.ssh
 
 创建新文件 `config`, 在新文件中写入以下内容
 
-```
+```ssh-config
 Host server
 	HostName xxx.xxx.xxx.xxx
 	User user
