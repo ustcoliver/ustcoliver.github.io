@@ -65,7 +65,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
     
 
 linux本机或windows ssh连接，要想显示丰富的图标，需要在本地主机上安装字体。
-linux远程主机则可以跳过。
+**linux远程主机则可以跳过。**
 - Hack [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip)
 - Meslo [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Meslo.zip)
 - JetBrains [下载](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip)
@@ -163,8 +163,8 @@ sudo pacman -S eza
 ```shell
 # 不要直接复制此链接,去github下载最新的release
 wget https://github.com/eza-community/eza/releases/download/v0.17.0/eza_x86_64-unknown-linux-gnu.zip
-unzip eza-xxx.zip 
-sudo install ezz /usr/local/bin/
+unzip eza_xxx.zip 
+sudo install eza /usr/local/bin/
 ```
 
 编辑`~/.zshrc`
